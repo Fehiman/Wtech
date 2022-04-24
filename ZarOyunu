@@ -1,0 +1,122 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ZarOyunu
+{
+    
+    internal class Program
+    {
+        
+        static void Main(string[] args)
+        {
+            int[] puanlar = OyunuOyna();
+            int puan1=puanlar[0];
+            string oyuncu1 = "Oyuncu1'in puanı:" + puan1.ToString();
+            int puan2=puanlar[1];
+            string oyuncu2 = "Oyuncu2'nin puanı:" + puan2.ToString();
+            int puan3=puanlar[2];
+            string oyuncu3 = "Oyuncu3'ün puanı:" + puan3.ToString();
+            int puan4=puanlar[3];
+            string oyuncu4 = "Oyuncu4'ün puanı:" + puan4.ToString();
+
+            string[] oyuncular = { oyuncu1, oyuncu2, oyuncu3, oyuncu4 };
+
+            for (int i = 0; i <= 2; i++)// Sırala
+            {
+                for (int j = i + 1; j <= 3; j++)
+                {
+                    if (puanlar[i] < puanlar[j])
+                    {
+
+                        int temp1 = puanlar[i];
+                        puanlar[i] = puanlar[j];
+                        puanlar[j] = temp1;
+
+
+                        string temp2 = oyuncular[i];
+                        oyuncular[i] = oyuncular[j];
+                        oyuncular[j] = temp2;
+                    }
+                }
+            }
+            Console.WriteLine("Sıralama");
+            Console.WriteLine("--------------------------------------");
+            Console.WriteLine("1-"+oyuncular[0]+"-KAZANAN");
+            Console.WriteLine("2-"+oyuncular[1]);
+            Console.WriteLine("3-"+oyuncular[2]);
+            Console.WriteLine("4-"+oyuncular[3]);
+
+
+        }
+        static int[] OyunuOyna()
+        {
+            int puan = 0;
+            int[] puanlar=new int[4];
+            Random random = new Random();
+            for (int j = 1;j <= 4; j++)
+            {
+                puan = 0;
+            for (int i = 0; i < 25; i++)
+            {
+                int sayi1 = random.Next(1, 6);
+                int sayi2 = random.Next(1, 6);
+                int sayi3 = random.Next(1, 6);
+                int sayi4 = random.Next(1, 6);
+
+                int[] sayilar = { sayi1, sayi2, sayi3, sayi4 };
+
+                if (Topla(sayilar) == 6)//
+                {
+                    puan += 100;
+                }
+                else if (Topla(sayilar) == 3)
+                {
+                    puan += 50;
+                }
+                else if (Topla(sayilar) == 2)
+                {
+                    puan += 40;
+                }
+                else if (Topla(sayilar) == 1)
+                {
+                    puan += 20;
+                }
+                else
+                {
+                    continue;
+                }
+
+            }
+            puanlar[j-1]=puan;
+            }
+
+            return puanlar ;
+        }
+
+        static int Topla(int[] sayilar)
+        {
+            int esitlikSayisi = 0;
+            for (int i = 0; i <= 2; i++)
+            {
+                for (int j = i + 1; j <= 3; j++)//3
+                {
+                    if (sayilar[i] == sayilar[j])//0 1 2 3
+                    {
+                        esitlikSayisi++;
+
+                    }
+                }
+            }
+            return esitlikSayisi;
+            // 6 100
+            // 1 20
+            // 2 40
+            // 3 50
+            // 0 0
+        }
+
+    }
+}
