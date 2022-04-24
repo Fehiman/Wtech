@@ -1,0 +1,2 @@
+# Wtech
+Ödevler
